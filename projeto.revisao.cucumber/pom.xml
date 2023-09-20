@@ -5,6 +5,15 @@
 	<groupId>br.com.e2etreinamentos</groupId>
 	<artifactId>projeto.revisao.cucumber</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	
+	<properties>
+        <!-- Configurações para o WebDriver -->
+        <webdriver.browser>chrome</webdriver.browser>
+        <webdriver.driver.version>latest</webdriver.driver.version>
+
+        <!-- Configurações para o Cucumber -->
+        <cucumber.version>7.13.0</cucumber.version>
+    </properties>
 	<dependencies>
 		<!--
 		https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
@@ -39,4 +48,17 @@
 			<version>7.13.0</version>
 		</dependency>
 	</dependencies>
+	
+	 <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M8</version>
+                <configuration>
+                    <argLine>-Dwebdriver.driver=${webdriver.browser}</argLine>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
