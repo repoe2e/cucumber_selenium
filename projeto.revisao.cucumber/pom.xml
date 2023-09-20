@@ -68,7 +68,7 @@
                 <parallel>all</parallel>
                 <threadCount>1</threadCount>
             </configuration>
-        </plugin>
+        </plugin>	
 	
 			<!-- display active profile in compile phase -->
 			<plugin>
