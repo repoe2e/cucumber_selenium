@@ -1,4 +1,4 @@
-package runer;
+package runner;
 
 import org.junit.runner.RunWith;
 import org.openqa.selenium.chrome.ChromeDriver;

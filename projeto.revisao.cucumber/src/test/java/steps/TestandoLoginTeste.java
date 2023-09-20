@@ -6,7 +6,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import metodos.Metodos;
-import runer.Executa;
+import runner.Executa;
 
 public class TestandoLoginTeste {
 
