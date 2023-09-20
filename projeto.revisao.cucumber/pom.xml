@@ -53,36 +53,21 @@
 		</dependency>
 	</dependencies>
 	
- <build>
-        <testSourceDirectory>src</testSourceDirectory>
+  <build>
         <plugins>
+            <!-- Maven Surefire Plugin para execução dos testes -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M8</version>
+                <version>3.0.0-M8</version> <!-- Use a versão mais recente do Surefire -->
                 <configuration>
                     <includes>
-                        <include>**/*Test.java</include>
+                        <include>runner/Executa.java</include>
                     </includes>
-                    <systemPropertyVariables>
-                        <cucumber.options>--tags @teste</cucumber.options>
-                    </systemPropertyVariables>
+                    <parallel>all</parallel>
+                    <threadCount>1</threadCount>
+                    <argLine>-Dcucumber.options="--tags @Test"</argLine>
                 </configuration>
-            </plugin>
-            <!-- display active profile in compile phase -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-help-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>show-profiles</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>active-profiles</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
