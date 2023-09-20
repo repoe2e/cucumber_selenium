@@ -10,7 +10,7 @@ Feature: Login de usuario
    Given que esteja na tela de login
  
  
- @positivo
+ @teste
   Scenario: Login com sucesso
     And preencher o nome
     And preencher a senha
