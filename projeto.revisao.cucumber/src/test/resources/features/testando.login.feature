@@ -24,3 +24,10 @@ Feature: Login de usuario
     But preencher a senha errada
     When clicar no botao login
     Then valido mensagem de senha invalida
+    
+    @outro
+  Scenario: Login com sucesso
+    And preencher o nome
+    And preencher a senha
+    When clicar no botao login
+    Then acesso conta
