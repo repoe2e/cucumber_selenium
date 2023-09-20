@@ -9,7 +9,7 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/features", glue = "steps",  dryRun = false, monochrome = true, snippets = SnippetType.CAMELCASE, plugin = {
+@CucumberOptions(features = "src/test/resources/features", tags = "@negativo",glue = "steps",  dryRun = false, monochrome = true, snippets = SnippetType.CAMELCASE, plugin = {
 		"pretty", "html:target/cucumber-resport.html" }
 
 )
