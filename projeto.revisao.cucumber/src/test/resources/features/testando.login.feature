@@ -1,6 +1,6 @@
 #Author: e2etreinamentos@e2etreinamentos.com.br
 
-@Test
+@regressivo
 Feature: Login de usuario
   Como usuario do sistema saucedemo
   Quero enviar os dados de login
