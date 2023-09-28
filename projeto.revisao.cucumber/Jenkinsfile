@@ -1,31 +1,56 @@
 pipeline {
     agent any
 
+    environment {
+        MAVEN_HOME = tool 'Maven' // Certifique-se de que a ferramenta "Maven" está configurada no Jenkins
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                // Etapa para fazer o checkout do código-fonte do GitHub
-                checkout([$class: 'GitSCM', branches: [[name: 'master']], userRemoteConfigs: [[url: 'https://github.com/repoe2e/cucumber_selenium.git']]])
+                // Realiza o checkout do código do Git
+                script {
+                    checkout([$class: 'GitSCM', 
+                              branches: [[name: 'master']], 
+                              userRemoteConfigs: [[url: 'https://github.com/repoe2e/cucumber_selenium.git']]])
+                }
             }
         }
+
         stage('Build and Test') {
             steps {
-                // Etapa para construir e executar testes (coloque seus comandos aqui)
-                sh 'mvn clean test' // Exemplo: comando Maven para limpar e executar testes
+                // Execute os comandos de build e teste
+                dir('projeto.revisao.cucumber') {
+                    sh "${tool name: 'Maven'}/bin/mvn clean test" // Altere o comando Maven conforme necessário
+                }
+            }
+        }
+
+        // Adicione mais estágios conforme necessário
+
+        stage('Publish Results') {
+            steps {
+                // Exemplo: Publica resultados dos testes (você pode personalizar isso)
+                junit '**/target/test-classes/*.xml'
+                archiveArtifacts '**/target/*.jar'
             }
         }
     }
 
     post {
         success {
-            emailext subject: 'Build e Testes Automatizados - Sucesso',
-                      body: 'O pipeline de build e testes automatizados foi executado com sucesso.',
-                      to: 'professores@e2etreinamentos.com.br'
+            emailext (
+                to: 'professores@e2etreinamentos.com.br',
+                subject: "Build de Sucesso - ${currentBuild.fullDisplayName}",
+                body: 'O build foi bem-sucedido. Parabéns!'
+            )
         }
         failure {
-            emailext subject: 'Build e Testes Automatizados - Falha',
-                      body: 'O pipeline de build e testes automatizados falhou. Verifique o log para detalhes.',
-                      to: 'professores@e2etreinamentos.com.br'
+            emailext (
+                to: 'professores@e2etreinamentos.com.br',
+                subject: "Build Falhou - ${currentBuild.fullDisplayName}",
+                body: 'O build falhou. Verifique os logs para mais informações.'
+            )
         }
     }
 }
