@@ -21,7 +21,7 @@ pipeline {
             steps {
                 // Execute os comandos de build e teste dentro do diretório 'cucumber_selenium/projeto.revisao.cucumber'
                 dir('cucumber_selenium/projeto.revisao.cucumber') {
-                    sh "${tool name: 'Maven'}/bin/mvn clean test" // Altere o comando Maven conforme necessário
+                    sh "${MAVEN_HOME}/bin/mvn clean test" // Usando MAVEN_HOME para apontar para a instalação do Maven
                 }
             }
         }
