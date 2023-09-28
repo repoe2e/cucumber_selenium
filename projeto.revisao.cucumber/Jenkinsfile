@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Etapa para fazer o checkout do código-fonte do GitHub
+                checkout([$class: 'GitSCM', branches: [[name: 'master']], userRemoteConfigs: [[url: 'https://github.com/repoe2e/cucumber_selenium.git']]])
+            }
+        }
+        stage('Build and Test') {
+            steps {
+                // Etapa para construir e executar testes (coloque seus comandos aqui)
+                sh 'mvn clean test' // Exemplo: comando Maven para limpar e executar testes
+            }
+        }
+    }
+
+    post {
+        success {
+            emailext subject: 'Build e Testes Automatizados - Sucesso',
+                      body: 'O pipeline de build e testes automatizados foi executado com sucesso.',
+                      to: 'professores@e2etreinamentos.com.br'
+        }
+        failure {
+            emailext subject: 'Build e Testes Automatizados - Falha',
+                      body: 'O pipeline de build e testes automatizados falhou. Verifique o log para detalhes.',
+                      to: 'professores@e2etreinamentos.com.br'
+        }
+    }
+}
